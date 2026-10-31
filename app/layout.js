@@ -2,6 +2,12 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Playfair_Display } from "next/font/google";
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+});
 
 export const metadata = {
   title: {
@@ -14,7 +20,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-theme="caramellatte">
+    <html lang="en" data-theme="booknook" className={playfair.variable}>
       <body className="flex min-h-screen flex-col bg-base-100 text-base-content">
         <Navbar />
         <main className="flex-1">{children}</main>
