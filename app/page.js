@@ -1,10 +1,11 @@
 import HeroSlider from "@/components/HeroSlider";
+import NewArrivals from "@/components/NewArrivals";
 
 export default function Home() {
   return (
     <div>
       <HeroSlider />
-      {/* পরের ধাপে এখানে New Arrivals আর বাকি সেকশন আসবে */}
+      <NewArrivals />
     </div>
   );
 }
