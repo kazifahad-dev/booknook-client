@@ -46,7 +46,7 @@ export default function HeroSlider() {
       {slides.map((slide, index) => (
         <SwiperSlide key={slide.title}>
           <div className="relative h-[420px] w-full bg-[#3b2a1f] md:h-[540px]">
-            {/* ব্যাকগ্রাউন্ড ছবি */}
+            
             <Image
               src={slide.image}
               alt={slide.title}
@@ -56,10 +56,10 @@ export default function HeroSlider() {
               className="object-cover"
             />
 
-            {/* গাঢ় আবরণ, যাতে লেখা পড়া যায় */}
+            
             <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/20" />
 
-            {/* লেখা */}
+            
             <div className="relative mx-auto flex h-full max-w-6xl flex-col items-start justify-center gap-4 px-6 text-white lg:px-8">
               <h1 className="max-w-xl text-3xl font-bold leading-tight md:text-5xl">
                 {slide.title}

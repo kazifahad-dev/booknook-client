@@ -21,11 +21,11 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
 
-  // এখন কে লগইন করা আছে, BetterAuth থেকে জানা
+  
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
 
-  // লগইন থাকলে সব লিংক, না থাকলে শুধু পাবলিক লিংক
+  
   const links = user ? [...publicLinks, ...privateLinks] : publicLinks;
 
   const handleLogout = async () => {
@@ -48,7 +48,7 @@ export default function Navbar() {
 
   return (
     <div className="navbar sticky top-0 z-50 bg-base-100 px-4 shadow-sm lg:px-8">
-      {/* বাঁ দিক: মোবাইল মেনু + লোগো */}
+    
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -80,12 +80,12 @@ export default function Navbar() {
         </Link>
       </div>
 
-      {/* মাঝখান: বড় স্ক্রিনের লিংক */}
+     
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navItems}</ul>
       </div>
 
-      {/* ডান দিক: লোডিং / ইউজারের ছবি / Login-Register বাটন */}
+      
       <div className="navbar-end gap-2">
         {isPending ? (
           <span className="loading loading-spinner loading-sm"></span>

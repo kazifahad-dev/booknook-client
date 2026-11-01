@@ -13,7 +13,7 @@ export default function AddBookForm() {
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState(null);
 
-  // ছবি বাছাইয়ের সঙ্গে সঙ্গে একটা ছোট প্রিভিউ দেখাই
+  
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setPreview(file ? URL.createObjectURL(file) : null);
@@ -36,7 +36,7 @@ export default function AddBookForm() {
 
     setLoading(true);
     try {
-      // ১. ছবি imgbb-তে আপলোড
+      
       const imgData = new FormData();
       imgData.append("image", file);
 
@@ -50,7 +50,7 @@ export default function AddBookForm() {
       }
       const imageUrl = imgJson.data.display_url;
 
-      // ২. বইয়ের তথ্য আমাদের server-এ পাঠাই
+      
       const book = {
         title: formData.get("title"),
         author: formData.get("author"),
@@ -87,12 +87,12 @@ export default function AddBookForm() {
     <form onSubmit={handleSubmit} className="grid gap-5 md:grid-cols-2">
       <label className="form-control">
         <span className="mb-1 text-sm font-medium">Book Title</span>
-        <input name="title" type="text" required placeholder="e.g. The Silent Garden" className="input input-bordered w-full" />
+        <input name="title" type="text" required placeholder="e.g. Consistency Manager" className="input input-bordered w-full" />
       </label>
 
       <label className="form-control">
         <span className="mb-1 text-sm font-medium">Author Name</span>
-        <input name="author" type="text" required placeholder="e.g. Anika Rahman" className="input input-bordered w-full" />
+        <input name="author" type="text" required placeholder="e.g. Kazi Fahad" className="input input-bordered w-full" />
       </label>
 
       <label className="form-control">

@@ -10,13 +10,13 @@ export default function PrivateRoute({ children }) {
   const pathname = usePathname();
 
   useEffect(() => {
-    // সেশন যাচাই শেষ হয়েছে আর ইউজার নেই, তবেই Login-এ পাঠাও
+    
     if (!isPending && !session) {
       router.replace(`/login?redirect=${encodeURIComponent(pathname)}`);
     }
   }, [isPending, session, router, pathname]);
 
-  // যাচাই চলছে বা ইউজার নেই, spinner দেখাও
+  
   if (isPending || !session) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">

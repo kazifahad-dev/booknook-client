@@ -12,7 +12,7 @@ function LoginForm() {
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
 
-  // ইউজার যে পেজে যেতে চেয়েছিল, লগইনের পর সেখানে ফেরানো হবে
+  
   const redirect = searchParams.get("redirect") || "/";
   const redirectTo = redirect.startsWith("/") ? redirect : "/";
 

@@ -20,8 +20,8 @@ export default function Footer() {
         <div>
           <h3 className="mb-3 font-semibold">Contact</h3>
           <ul className="space-y-1 text-sm opacity-80">
-            <li>hello@booknook.com</li>
-            <li>+880 1XXX-XXXXXX</li>
+            <li>info@booknook.com</li>
+            <li>+8801357091290</li>
             <li>Dhaka, Bangladesh</li>
           </ul>
         </div>

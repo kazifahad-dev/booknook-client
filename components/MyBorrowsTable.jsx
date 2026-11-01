@@ -21,7 +21,7 @@ export default function MyBorrowsTable() {
   const [loading, setLoading] = useState(true);
   const [returningId, setReturningId] = useState(null);
 
-  // ইউজারের ধার নেওয়া বইগুলো আনা
+  
   useEffect(() => {
     if (!email) return;
 
@@ -42,7 +42,7 @@ export default function MyBorrowsTable() {
     loadBorrows();
   }, [email]);
 
-  // বই ফেরত দেওয়া
+ 
   const handleReturn = async (borrow) => {
     setReturningId(borrow._id);
     try {
@@ -53,7 +53,7 @@ export default function MyBorrowsTable() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Could not return the book");
 
-      // তালিকা থেকে সঙ্গে সঙ্গে সরিয়ে দিই
+      
       setBorrows((prev) => prev.filter((item) => item._id !== borrow._id));
       toast.success(`"${borrow.bookTitle}" returned successfully`);
     } catch (error) {

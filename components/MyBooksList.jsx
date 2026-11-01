@@ -21,7 +21,7 @@ export default function MyBooksList() {
   const editRef = useRef(null);
   const deleteRef = useRef(null);
 
-  // শুধু এই ইউজারের যোগ করা বইগুলো আনা
+  
   useEffect(() => {
     if (!email) return;
 
@@ -52,7 +52,7 @@ export default function MyBooksList() {
     deleteRef.current?.showModal();
   };
 
-  // বই আপডেট
+  
   const handleUpdate = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -61,7 +61,7 @@ export default function MyBooksList() {
     try {
       let imageUrl = editing.image;
 
-      // নতুন ছবি বাছা হলে তবেই imgbb-তে আপলোড, নইলে পুরোনোটাই থাকে
+      
       const file = formData.get("image");
       if (file && file.size > 0) {
         if (file.size > 5 * 1024 * 1024) {
@@ -97,7 +97,7 @@ export default function MyBooksList() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Could not update the book");
 
-      // তালিকায় নতুন তথ্য বসাই
+      
       setBooks((prev) =>
         prev.map((b) => (b._id === editing._id ? { ...b, ...updated } : b))
       );
@@ -110,7 +110,7 @@ export default function MyBooksList() {
     }
   };
 
-  // বই ডিলিট
+  
   const handleDelete = async () => {
     setRemoving(true);
     try {
@@ -204,7 +204,7 @@ export default function MyBooksList() {
         </div>
       )}
 
-      {/* Edit modal */}
+
       <dialog ref={editRef} className="modal">
         <div className="modal-box max-w-xl">
           <h3 className="text-xl font-bold">Edit Book</h3>
@@ -256,7 +256,7 @@ export default function MyBooksList() {
         </form>
       </dialog>
 
-      {/* Delete confirm modal */}
+      
       <dialog ref={deleteRef} className="modal">
         <div className="modal-box">
           <h3 className="text-xl font-bold">Delete this book?</h3>
