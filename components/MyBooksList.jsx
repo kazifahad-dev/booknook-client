@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
+import { authFetch } from "@/lib/api";
 
 const categories = ["Fiction", "Science", "History", "Kids", "Others"];
 
@@ -21,7 +22,7 @@ export default function MyBooksList() {
   const editRef = useRef(null);
   const deleteRef = useRef(null);
 
-  
+
   useEffect(() => {
     if (!email) return;
 
@@ -52,7 +53,7 @@ export default function MyBooksList() {
     deleteRef.current?.showModal();
   };
 
-  
+
   const handleUpdate = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -61,7 +62,7 @@ export default function MyBooksList() {
     try {
       let imageUrl = editing.image;
 
-      
+
       const file = formData.get("image");
       if (file && file.size > 0) {
         if (file.size > 5 * 1024 * 1024) {
@@ -86,18 +87,15 @@ export default function MyBooksList() {
         image: imageUrl,
       };
 
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/books/${editing._id}`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(updated),
-        }
-      );
+      const res = await authFetch(`/books/${editing._id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updated),
+      });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Could not update the book");
 
-      
+
       setBooks((prev) =>
         prev.map((b) => (b._id === editing._id ? { ...b, ...updated } : b))
       );
@@ -110,14 +108,11 @@ export default function MyBooksList() {
     }
   };
 
-  
+
   const handleDelete = async () => {
     setRemoving(true);
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/books/${deleting._id}`,
-        { method: "DELETE" }
-      );
+      const res = await authFetch(`/books/${deleting._id}`, { method: "DELETE" });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Could not delete the book");
 
@@ -256,7 +251,7 @@ export default function MyBooksList() {
         </form>
       </dialog>
 
-      
+
       <dialog ref={deleteRef} className="modal">
         <div className="modal-box">
           <h3 className="text-xl font-bold">Delete this book?</h3>

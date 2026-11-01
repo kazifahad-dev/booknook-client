@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
+import { authFetch } from "@/lib/api";
 
 export default function BookDetails({ book }) {
   const router = useRouter();
@@ -28,14 +29,10 @@ export default function BookDetails({ book }) {
     setLoading(true);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/borrows`, {
+      const res = await authFetch("/borrows", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          bookId: book._id,
-          userName: user?.name,
-          userEmail: user?.email,
-        }),
+        body: JSON.stringify({ bookId: book._id }),
       });
       const data = await res.json();
 
@@ -58,7 +55,7 @@ export default function BookDetails({ book }) {
   return (
     <section className="mx-auto max-w-5xl px-4 py-16 lg:px-8">
       <div className="grid gap-10 md:grid-cols-2">
-        {/* বইয়ের ছবি */}
+
         <div className="overflow-hidden rounded-xl border border-base-300 bg-base-200">
           <img
             src={book.image}
@@ -72,7 +69,7 @@ export default function BookDetails({ book }) {
           />
         </div>
 
-        {/* বইয়ের তথ্য */}
+
         <div className="flex flex-col gap-4">
           <span className="badge badge-outline w-fit">{book.category}</span>
           <h1 className="text-3xl font-bold md:text-4xl">{book.title}</h1>
@@ -103,7 +100,7 @@ export default function BookDetails({ book }) {
         </div>
       </div>
 
-      {/* Borrow modal */}
+
       <dialog ref={modalRef} className="modal">
         <div className="modal-box">
           <h3 className="text-xl font-bold">Borrow "{book.title}"</h3>

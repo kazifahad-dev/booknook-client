@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
+import { authFetch } from "@/lib/api";
 
 const formatDate = (date) =>
   new Date(date).toLocaleDateString("en-GB", {
@@ -21,15 +22,13 @@ export default function MyBorrowsTable() {
   const [loading, setLoading] = useState(true);
   const [returningId, setReturningId] = useState(null);
 
-  
+
   useEffect(() => {
     if (!email) return;
 
     const loadBorrows = async () => {
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/borrows?email=${encodeURIComponent(email)}`
-        );
+        const res = await authFetch("/borrows");
         if (!res.ok) throw new Error("Could not load your borrows");
         setBorrows(await res.json());
       } catch (error) {
@@ -42,18 +41,15 @@ export default function MyBorrowsTable() {
     loadBorrows();
   }, [email]);
 
- 
+
   const handleReturn = async (borrow) => {
     setReturningId(borrow._id);
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/borrows/${borrow._id}`,
-        { method: "DELETE" }
-      );
+      const res = await authFetch(`/borrows/${borrow._id}`, { method: "DELETE" });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Could not return the book");
 
-      
+
       setBorrows((prev) => prev.filter((item) => item._id !== borrow._id));
       toast.success(`"${borrow.bookTitle}" returned successfully`);
     } catch (error) {

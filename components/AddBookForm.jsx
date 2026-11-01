@@ -3,6 +3,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
+import { authFetch } from "@/lib/api";
 
 const categories = ["Fiction", "Science", "History", "Kids", "Others"];
 
@@ -13,7 +14,7 @@ export default function AddBookForm() {
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState(null);
 
-  
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setPreview(file ? URL.createObjectURL(file) : null);
@@ -36,7 +37,7 @@ export default function AddBookForm() {
 
     setLoading(true);
     try {
-      
+
       const imgData = new FormData();
       imgData.append("image", file);
 
@@ -50,7 +51,7 @@ export default function AddBookForm() {
       }
       const imageUrl = imgJson.data.display_url;
 
-      
+
       const book = {
         title: formData.get("title"),
         author: formData.get("author"),
@@ -62,7 +63,7 @@ export default function AddBookForm() {
         userEmail: user?.email,
       };
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/books`, {
+      const res = await authFetch("/books", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(book),
