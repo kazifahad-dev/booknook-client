@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import PasswordInput from "@/components/PasswordInput";
+import GoogleButton from "@/components/GoogleButton";
 
 function validatePassword(password) {
   if (!/[A-Z]/.test(password)) return "Password must have an uppercase letter";
@@ -57,32 +58,63 @@ export default function RegisterPage() {
 
           <label className="form-control">
             <span className="mb-1 text-sm font-medium">Name</span>
-            <input name="name" type="text" required placeholder="Your full name" className="input input-bordered w-full" />
+            <input
+              name="name"
+              type="text"
+              required
+              placeholder="Your full name"
+              className="input input-bordered w-full"
+            />
           </label>
 
           <label className="form-control">
             <span className="mb-1 text-sm font-medium">Email</span>
-            <input name="email" type="email" required placeholder="you@example.com" className="input input-bordered w-full" />
+            <input
+              name="email"
+              type="email"
+              required
+              placeholder="you@example.com"
+              className="input input-bordered w-full"
+            />
           </label>
 
           <label className="form-control">
             <span className="mb-1 text-sm font-medium">Photo URL</span>
-            <input name="photo" type="url" required placeholder="https://..." className="input input-bordered w-full" />
+            <input
+              name="photo"
+              type="url"
+              required
+              placeholder="https://..."
+              className="input input-bordered w-full"
+            />
           </label>
 
           <div className="form-control">
             <span className="mb-1 text-sm font-medium">Password</span>
             <PasswordInput placeholder="Create a password" />
-            {passwordError && <span className="mt-1 text-sm text-error">{passwordError}</span>}
+            {passwordError && (
+              <span className="mt-1 text-sm text-error">{passwordError}</span>
+            )}
           </div>
 
-          <button type="submit" disabled={loading} className="btn btn-primary w-full">
-            {loading ? <span className="loading loading-spinner loading-sm"></span> : "Register"}
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn btn-primary w-full"
+          >
+            {loading ? (
+              <span className="loading loading-spinner loading-sm"></span>
+            ) : (
+              "Register"
+            )}
           </button>
-
+          <div className="divider text-sm">OR</div>
+          <GoogleButton callbackURL="/" />
           <p className="text-center text-sm">
             Already have an account?{" "}
-            <Link href="/login" className="font-semibold text-primary">Login</Link>
+            <Link href="/login" className="font-semibold text-primary">
+              Login
+            </Link>
           </p>
         </form>
       </div>

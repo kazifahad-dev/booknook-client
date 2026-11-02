@@ -6,13 +6,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import PasswordInput from "@/components/PasswordInput";
+import GoogleButton from "@/components/GoogleButton";
 
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
 
-  
   const redirect = searchParams.get("redirect") || "/";
   const redirectTo = redirect.startsWith("/") ? redirect : "/";
 
@@ -44,22 +44,41 @@ function LoginForm() {
 
           <label className="form-control">
             <span className="mb-1 text-sm font-medium">Email</span>
-            <input name="email" type="email" required placeholder="you@example.com" className="input input-bordered w-full" />
+            <input
+              name="email"
+              type="email"
+              required
+              placeholder="you@example.com"
+              className="input input-bordered w-full"
+            />
           </label>
 
           <div className="form-control">
             <span className="mb-1 text-sm font-medium">Password</span>
             <PasswordInput placeholder="Your password" />
-            <span className="mt-1 text-right text-sm text-primary">Forget Password?</span>
+            <span className="mt-1 text-right text-sm text-primary">
+              Forget Password?
+            </span>
           </div>
 
-          <button type="submit" disabled={loading} className="btn btn-primary w-full">
-            {loading ? <span className="loading loading-spinner loading-sm"></span> : "Login"}
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn btn-primary w-full"
+          >
+            {loading ? (
+              <span className="loading loading-spinner loading-sm"></span>
+            ) : (
+              "Login"
+            )}
           </button>
-
+          <div className="divider text-sm">OR</div>
+          <GoogleButton callbackURL={redirectTo} />
           <p className="text-center text-sm">
             New to BookNook?{" "}
-            <Link href="/register" className="font-semibold text-primary">Register</Link>
+            <Link href="/register" className="font-semibold text-primary">
+              Register
+            </Link>
           </p>
         </form>
       </div>
