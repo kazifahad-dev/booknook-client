@@ -144,59 +144,103 @@ export default function MyBooksList() {
           </Link>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-base-300">
-          <table className="table">
-            <thead>
-              <tr className="bg-base-200">
-                <th>Image</th>
-                <th>Title</th>
-                <th>Category</th>
-                <th>Copies</th>
-                <th className="text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {books.map((book) => (
-                <tr key={book._id}>
-                  <td>
-                    <img
-                      src={book.image}
-                      alt={book.title}
-                      referrerPolicy="no-referrer"
-                      className="h-20 w-14 rounded object-cover"
-                      onError={(e) => {
-                        e.currentTarget.onerror = null;
-                        e.currentTarget.src = "https://placehold.co/112x160?text=No+Cover";
-                      }}
-                    />
-                  </td>
-                  <td>
-                    <Link href={`/books/${book._id}`} className="font-semibold hover:text-primary">
-                      {book.title}
-                    </Link>
-                    <p className="text-sm opacity-70">by {book.author}</p>
-                  </td>
-                  <td>
-                    <span className="badge badge-outline">{book.category}</span>
-                  </td>
-                  <td>
-                    {book.availableCopies} / {book.totalCopies}
-                  </td>
-                  <td className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <button onClick={() => openEdit(book)} className="btn btn-outline btn-primary btn-sm">
-                        Edit
-                      </button>
-                      <button onClick={() => openDelete(book)} className="btn btn-outline btn-error btn-sm">
-                        Delete
-                      </button>
-                    </div>
-                  </td>
+        <>
+          
+          <div className="hidden overflow-x-auto rounded-xl border border-base-300 md:block">
+            <table className="table">
+              <thead>
+                <tr className="bg-base-200">
+                  <th>Image</th>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Copies</th>
+                  <th className="text-right">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {books.map((book) => (
+                  <tr key={book._id}>
+                    <td>
+                      <img
+                        src={book.image}
+                        alt={book.title}
+                        referrerPolicy="no-referrer"
+                        className="h-20 w-14 rounded object-cover"
+                        onError={(e) => {
+                          e.currentTarget.onerror = null;
+                          e.currentTarget.src = "https://placehold.co/112x160?text=No+Cover";
+                        }}
+                      />
+                    </td>
+                    <td>
+                      <Link href={`/books/${book._id}`} className="font-semibold hover:text-primary">
+                        {book.title}
+                      </Link>
+                      <p className="text-sm opacity-70">by {book.author}</p>
+                    </td>
+                    <td>
+                      <span className="badge badge-outline">{book.category}</span>
+                    </td>
+                    <td>
+                      {book.availableCopies} / {book.totalCopies}
+                    </td>
+                    <td className="text-right">
+                      <div className="flex justify-end gap-2">
+                        <button onClick={() => openEdit(book)} className="btn btn-outline btn-primary btn-sm">
+                          Edit
+                        </button>
+                        <button onClick={() => openDelete(book)} className="btn btn-outline btn-error btn-sm">
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          
+          <div className="grid gap-4 md:hidden">
+            {books.map((book) => (
+              <div
+                key={book._id}
+                className="flex gap-4 rounded-xl border border-base-300 bg-base-100 p-4"
+              >
+                <img
+                  src={book.image}
+                  alt={book.title}
+                  referrerPolicy="no-referrer"
+                  className="h-28 w-20 shrink-0 rounded object-cover"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = "https://placehold.co/160x224?text=No+Cover";
+                  }}
+                />
+                <div className="flex min-w-0 flex-1 flex-col gap-1">
+                  <Link href={`/books/${book._id}`} className="font-semibold hover:text-primary">
+                    {book.title}
+                  </Link>
+                  <p className="text-sm opacity-70">by {book.author}</p>
+                  <div className="flex items-center gap-2">
+                    <span className="badge badge-outline">{book.category}</span>
+                    <span className="text-sm opacity-70">
+                      {book.availableCopies} / {book.totalCopies} copies
+                    </span>
+                  </div>
+                  <div className="mt-2 flex gap-2">
+                    <button onClick={() => openEdit(book)} className="btn btn-outline btn-primary btn-sm">
+                      Edit
+                    </button>
+                    <button onClick={() => openDelete(book)} className="btn btn-outline btn-error btn-sm">
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
 
 

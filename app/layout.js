@@ -18,6 +18,10 @@ export const metadata = {
     "A small online library. Add a book, borrow a book, return a book.",
 };
 
+export const viewport = {
+  colorScheme: "only light",
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="booknook" className={playfair.variable}>

@@ -79,56 +79,98 @@ export default function MyBorrowsTable() {
   }
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-base-300">
-      <table className="table">
-        <thead>
-          <tr className="bg-base-200">
-            <th>Image</th>
-            <th>Title</th>
-            <th>Borrow Date</th>
-            <th>Return Date</th>
-            <th className="text-right">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {borrows.map((borrow) => (
-            <tr key={borrow._id}>
-              <td>
-                <img
-                  src={borrow.bookImage}
-                  alt={borrow.bookTitle}
-                  referrerPolicy="no-referrer"
-                  className="h-20 w-14 rounded object-cover"
-                  onError={(e) => {
-                    e.currentTarget.onerror = null;
-                    e.currentTarget.src = "https://placehold.co/112x160?text=No+Cover";
-                  }}
-                />
-              </td>
-              <td className="font-semibold">
-                <Link href={`/books/${borrow.bookId}`} className="hover:text-primary">
-                  {borrow.bookTitle}
-                </Link>
-              </td>
-              <td>{formatDate(borrow.borrowDate)}</td>
-              <td>{formatDate(borrow.returnDate)}</td>
-              <td className="text-right">
-                <button
-                  onClick={() => handleReturn(borrow)}
-                  disabled={returningId === borrow._id}
-                  className="btn btn-outline btn-primary btn-sm"
-                >
-                  {returningId === borrow._id ? (
-                    <span className="loading loading-spinner loading-xs"></span>
-                  ) : (
-                    "Return Book"
-                  )}
-                </button>
-              </td>
+    <>
+      
+      <div className="hidden overflow-x-auto rounded-xl border border-base-300 md:block">
+        <table className="table">
+          <thead>
+            <tr className="bg-base-200">
+              <th>Image</th>
+              <th>Title</th>
+              <th>Borrow Date</th>
+              <th>Return Date</th>
+              <th className="text-right">Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {borrows.map((borrow) => (
+              <tr key={borrow._id}>
+                <td>
+                  <img
+                    src={borrow.bookImage}
+                    alt={borrow.bookTitle}
+                    referrerPolicy="no-referrer"
+                    className="h-20 w-14 rounded object-cover"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = "https://placehold.co/112x160?text=No+Cover";
+                    }}
+                  />
+                </td>
+                <td className="font-semibold">
+                  <Link href={`/books/${borrow.bookId}`} className="hover:text-primary">
+                    {borrow.bookTitle}
+                  </Link>
+                </td>
+                <td>{formatDate(borrow.borrowDate)}</td>
+                <td>{formatDate(borrow.returnDate)}</td>
+                <td className="text-right">
+                  <button
+                    onClick={() => handleReturn(borrow)}
+                    disabled={returningId === borrow._id}
+                    className="btn btn-outline btn-primary btn-sm"
+                  >
+                    {returningId === borrow._id ? (
+                      <span className="loading loading-spinner loading-xs"></span>
+                    ) : (
+                      "Return Book"
+                    )}
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* মোবাইল: কার্ড */}
+      <div className="grid gap-4 md:hidden">
+        {borrows.map((borrow) => (
+          <div
+            key={borrow._id}
+            className="flex gap-4 rounded-xl border border-base-300 bg-base-100 p-4"
+          >
+            <img
+              src={borrow.bookImage}
+              alt={borrow.bookTitle}
+              referrerPolicy="no-referrer"
+              className="h-28 w-20 shrink-0 rounded object-cover"
+              onError={(e) => {
+                e.currentTarget.onerror = null;
+                e.currentTarget.src = "https://placehold.co/160x224?text=No+Cover";
+              }}
+            />
+            <div className="flex min-w-0 flex-1 flex-col gap-1">
+              <Link href={`/books/${borrow.bookId}`} className="font-semibold hover:text-primary">
+                {borrow.bookTitle}
+              </Link>
+              <p className="text-sm opacity-70">Borrowed: {formatDate(borrow.borrowDate)}</p>
+              <p className="text-sm opacity-70">Return by: {formatDate(borrow.returnDate)}</p>
+              <button
+                onClick={() => handleReturn(borrow)}
+                disabled={returningId === borrow._id}
+                className="btn btn-outline btn-primary btn-sm mt-2 w-fit"
+              >
+                {returningId === borrow._id ? (
+                  <span className="loading loading-spinner loading-xs"></span>
+                ) : (
+                  "Return Book"
+                )}
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
