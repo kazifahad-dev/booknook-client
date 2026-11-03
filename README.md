@@ -6,6 +6,13 @@ A small online library. Add a book, borrow a book, return a book.
 
 **Server repository:** https://github.com/kazifahad-dev/booknook-server
 
+## Demo Account
+
+- Email: demo@booknook.com
+- Password: Demo1234
+
+Google login may be limited to approved test accounts while the Google app is in testing mode. If it does not open for you, please use the demo account above or register with an email and password.
+
 ## Features
 
 - Browse every book on the shelf, or see the six newest arrivals on the home page
