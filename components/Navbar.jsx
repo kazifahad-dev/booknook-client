@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { FaBookOpen } from "react-icons/fa";
 import { authClient } from "@/lib/auth-client";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const publicLinks = [
   { href: "/", label: "Home" },
@@ -21,11 +22,11 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
 
-  
+
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
 
-  
+
   const links = user ? [...publicLinks, ...privateLinks] : publicLinks;
 
   const handleLogout = async () => {
@@ -48,7 +49,7 @@ export default function Navbar() {
 
   return (
     <div className="navbar sticky top-0 z-50 bg-base-100 px-4 shadow-sm lg:px-8">
-    
+
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -80,13 +81,14 @@ export default function Navbar() {
         </Link>
       </div>
 
-     
+
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navItems}</ul>
       </div>
 
-      
+
       <div className="navbar-end gap-2">
+        <ThemeToggle />
         {isPending ? (
           <span className="loading loading-spinner loading-sm"></span>
         ) : user ? (
