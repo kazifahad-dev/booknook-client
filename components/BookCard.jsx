@@ -7,7 +7,12 @@ export default function BookCard({ book }) {
         <img
           src={book.image}
           alt={book.title}
+          referrerPolicy="no-referrer"
           className="h-full w-full object-cover"
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = "https://placehold.co/400x600?text=No+Cover";
+          }}
         />
       </figure>
       <div className="card-body">
